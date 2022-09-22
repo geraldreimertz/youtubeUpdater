@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Inter:wght@800&display=swap" rel="stylesheet">
+    <title>Thumbnail Generator Gerald Reimertz</title>
+    <style>
+            #content {
+                background: url('space.png');
+                width: 1280px;
+                height: 720px;
+                position: relative;
+            }
+
+            #days {
+                font-family: 'League Spartan';
+                left: 55px;
+                position: relative;
+                top: 181px;
+                font-size: 155px;
+                letter-spacing: 11px;
+                text-shadow: 0px 0px 69px #282828;
+                color: #ffde5a;
+            }
+
+            #count {
+                font-family: 'Inter';
+                position: absolute;
+                top: 628px;
+                left: 197px;
+                width: 363px;
+                text-align: center;
+                color: #3b3b3b;
+                font-size: 37px;
+                font-weight: 800;
+            }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body>
+<div class="frame">
+    <div id="content">
+        <div class="overlay">
+            <div id="days">
+                103 TAGEN
+            </div>
+            <div id="count">
+                1301
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="result"></div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script type="text/javascript">
+
+    /**
+     * Thumbnail Generator for the viral Video of Gerald Reimertz
+     * Do not use without giving Credits: https://www.youtube.com/c/geraldreimertz
+     */
+
+    const days = findGetParameter('days');
+        const count = findGetParameter('count');
+         $('#days').text(days);
+         $('#count').text(count);
+
+        /**
+         * Convert a given CSS to a PNG. Make sure to run it with a webserver, otherwise "toDataURL" does not work
+         * for security reasons, if you use a background image from another domain.
+         */
+        html2canvas(document.querySelector("#content"),{scale: 1
+        }).then(canvas => {
+            var dataURL = canvas.toDataURL('image/png');
+            img = document.createElement('img');
+            img.setAttribute('id','resultimg');
+            document.getElementById("result").appendChild(img);
+            document.getElementById("resultimg").src = dataURL;
+        });
+
+        /**
+         * Credits: https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+         */
+        function findGetParameter(parameterName) {
+            var result = null,
+                tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+</script>
+</body>
+</html>
